@@ -1,10 +1,9 @@
 'use client'
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef, useEffect } from "react";
+import { Group, Vector3, Mesh, DirectionalLight } from "three";
+import { Canvas, useFrame, useThree, MeshProps } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, Text } from "@react-three/drei";
-import { useRef } from "react";
-import { Group, Vector3, Mesh } from "three";
-import { MeshProps } from '@react-three/fiber';
 
 export default function Home() {
   return (
@@ -12,13 +11,33 @@ export default function Home() {
       <Canvas>
         <PerspectiveCamera makeDefault position={[0, 0, 20]} />
         <OrbitControls />
-        <ambientLight intensity={0.1} />
-        <directionalLight position={[5, 5, 5]} intensity={1} />
-        <directionalLight position={[-5, -5, -5]} intensity={1} />
+        <ambientLight intensity={.8} />
         <pointLight position={[10, 10, 10]} intensity={0.5} />
+        <pointLight position={[-10, -10, -10]} intensity={0.5} />
+        <pointLight position={[0, 0, 0]} intensity={0.5} />
+        <FixedDirectionalLight />
         <BoxSphere />
       </Canvas>
     </div>
+  );
+}
+
+function FixedDirectionalLight() {
+  const lightRef = useRef<DirectionalLight>(null);
+  const { camera } = useThree();
+  
+  useEffect(() => {
+    const light = lightRef.current;
+    if (light) {
+      camera.add(light);
+      return () => {
+        camera.remove(light);
+      };
+    }
+  }, [camera]);
+
+  return (
+    <directionalLight ref={lightRef} />
   );
 }
 
@@ -28,7 +47,7 @@ function BoxSphere() {
   const boxWidth = 1;
   const boxHeight = 1;
   const boxDepth = .5;
-  const numBoxes = 200;
+  const numBoxes = 250;
 
   useFrame((state, delta) => {
     if (groupRef.current) {
@@ -81,7 +100,7 @@ function Box({ width, height, depth, number, ...props }: BoxProps) {
   return (
     <mesh ref={meshRef} {...props}>
       <boxGeometry args={[width, height, depth]} />
-      <meshStandardMaterial color="orange" />
+      <meshStandardMaterial color="orange" emissive="orange" emissiveIntensity={0.2} />
       <Text
         position={[0, 0, depth / 2 + 0.01]}
         fontSize={height * 0.5}
