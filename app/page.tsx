@@ -1,101 +1,96 @@
-import Image from "next/image";
+'use client'
+
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, PerspectiveCamera, Text } from "@react-three/drei";
+import { useRef } from "react";
+import { Group, Vector3, Mesh } from "three";
+import { MeshProps } from '@react-three/fiber';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div style={{ width: '100vw', height: '100vh' }}>
+      <Canvas>
+        <PerspectiveCamera makeDefault position={[0, 0, 20]} />
+        <OrbitControls />
+        <ambientLight intensity={0.1} />
+        <directionalLight position={[5, 5, 5]} intensity={1} />
+        <directionalLight position={[-5, -5, -5]} intensity={1} />
+        <pointLight position={[10, 10, 10]} intensity={0.5} />
+        <BoxSphere />
+      </Canvas>
     </div>
+  );
+}
+
+function BoxSphere() {
+  const groupRef = useRef<Group>(null);
+  const radius = 5;
+  const boxWidth = 1;
+  const boxHeight = 1;
+  const boxDepth = .5;
+  const numBoxes = 200;
+
+  useFrame((state, delta) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.x += delta * 0.1;
+      groupRef.current.rotation.y += delta * 0.15;
+    }
+  });
+
+  const boxes = [];
+  for (let i = 0; i < numBoxes; i++) {
+    const phi = Math.acos(-1 + (2 * i) / numBoxes);
+    const theta = Math.sqrt(numBoxes * Math.PI) * phi;
+
+    const x = radius * Math.cos(theta) * Math.sin(phi);
+    const y = radius * Math.sin(theta) * Math.sin(phi);
+    const z = radius * Math.cos(phi);
+
+    boxes.push(
+      <Box 
+        key={i} 
+        position={[x, y, z]} 
+        width={boxWidth}
+        height={boxHeight}
+        depth={boxDepth}
+        number={i + 1}
+      />
+    );
+  }
+
+  return <group ref={groupRef}>{boxes}</group>;
+}
+
+interface BoxProps extends MeshProps {
+  width: number;
+  height: number;
+  depth: number;
+  number: number;
+}
+
+function Box({ width, height, depth, number, ...props }: BoxProps) {
+  const meshRef = useRef<Mesh>(null);
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.lookAt(0, 0, 0);
+      meshRef.current.rotateOnAxis(new Vector3(0, 1, 0), Math.PI);
+    }
+  });
+
+  return (
+    <mesh ref={meshRef} {...props}>
+      <boxGeometry args={[width, height, depth]} />
+      <meshStandardMaterial color="orange" />
+      <Text
+        position={[0, 0, depth / 2 + 0.01]}
+        fontSize={height * 0.5}
+        color="black"
+        anchorX="center"
+        anchorY="middle"
+      >
+        {number}
+      </Text>
+    </mesh>
   );
 }
