@@ -1,9 +1,9 @@
 'use client'
 
 import { useRef, useEffect, useState } from "react";
-import { Group, Vector3, Mesh, DirectionalLight } from "three";
+import { Vector3, Mesh, DirectionalLight, Group } from "three";
 import { Canvas, useFrame, useThree, MeshProps } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, Text } from "@react-three/drei";
+import { PerspectiveCamera, Text } from "@react-three/drei";
 import { motion } from "framer-motion-3d";
 
 export default function Home() {
@@ -11,7 +11,6 @@ export default function Home() {
     <div style={{ width: '100vw', height: '100vh' }}>
       <Canvas>
         <PerspectiveCamera makeDefault position={[0, 0, 20]} />
-        <OrbitControls />
         <ambientLight intensity={.8} />
         <pointLight position={[10, 10, 10]} intensity={0.5} />
         <pointLight position={[-10, -10, -10]} intensity={0.5} />
@@ -44,7 +43,7 @@ function FixedDirectionalLight() {
 
 function BoxSphere() {
   const [isGrid, setIsGrid] = useState(true);
-  const rotationRef = useRef<{ y: number }>({ y: 0 });
+  const groupRef = useRef<Group>(null);
   const numBoxes = 250;
   const gridSize = Math.ceil(Math.sqrt(numBoxes));
   const spacing = 1.5;
@@ -54,9 +53,10 @@ function BoxSphere() {
     return () => clearTimeout(timer);
   }, []);
 
-  useFrame((state, delta) => {
-    if (!isGrid) {
-      rotationRef.current.y += delta * 0.5;
+  useFrame((_, delta) => {
+    if (groupRef.current && !isGrid) {
+      groupRef.current.rotation.x += delta * 0.2;
+      groupRef.current.rotation.y += delta * 0.2;
     }
   });
 
@@ -80,7 +80,6 @@ function BoxSphere() {
           x: isGrid ? gridX : sphereX,
           y: isGrid ? gridY : sphereY,
           z: isGrid ? gridZ : sphereZ,
-          rotateY: rotationRef.current.y,
         }}
         transition={{ duration: 2, ease: "easeInOut" }}
       >
@@ -94,7 +93,7 @@ function BoxSphere() {
     );
   }
 
-  return <group>{boxes}</group>;
+  return <group ref={groupRef}>{boxes}</group>;
 }
 
 interface BoxProps extends MeshProps {
