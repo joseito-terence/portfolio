@@ -1496,6 +1496,21 @@ foreground-child@^3.1.0:
     cross-spawn "^7.0.0"
     signal-exit "^4.0.1"
 
+framer-motion-3d@^11.11.0:
+  version "11.11.0"
+  resolved "https://registry.yarnpkg.com/framer-motion-3d/-/framer-motion-3d-11.11.0.tgz#f9e36ffd35f2b26dbae8543182a2e3bf692d95bb"
+  integrity sha512-jtQRWQPnC94Z2/fxy9GPlFqbywhhk9ehnqNrsg2IQRb3x2fR75Q00flJW3cwODHKViHvkYZRhgWLqQAiHmXQ1w==
+  dependencies:
+    framer-motion "^11.11.0"
+    react-merge-refs "^2.0.1"
+
+framer-motion@^11.11.0:
+  version "11.11.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.11.0.tgz#1814a7abaf69d897fac2ae9e9d6db3b6151d6f29"
+  integrity sha512-H6Pv12fcXaebinvnLDabTS9vHwtJKAo7XsnVeNLm5t8Yq5LuVvQ3DtL/2yBa2kGmhdIgx9cw8mbj6I8PYx7jPA==
+  dependencies:
+    tslib "^2.4.0"
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -2505,6 +2520,11 @@ react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-merge-refs@^2.0.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-2.1.1.tgz#e46763f8f1b881c0226ee54a1a2a10ffefba0233"
+  integrity sha512-jLQXJ/URln51zskhgppGJ2ub7b2WFKGq3cl3NYKtlHoTG+dN2q7EzWrn3hN3EgPsTMvpR9tpq5ijdp7YwFZkag==
 
 react-reconciler@^0.27.0:
   version "0.27.0"

@@ -1,9 +1,10 @@
 'use client'
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Group, Vector3, Mesh, DirectionalLight } from "three";
 import { Canvas, useFrame, useThree, MeshProps } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, Text } from "@react-three/drei";
+import { motion } from "framer-motion-3d";
 
 export default function Home() {
   return (
@@ -42,42 +43,58 @@ function FixedDirectionalLight() {
 }
 
 function BoxSphere() {
-  const groupRef = useRef<Group>(null);
-  const radius = 5;
-  const boxWidth = 1;
-  const boxHeight = 1;
-  const boxDepth = .5;
+  const [isGrid, setIsGrid] = useState(true);
+  const rotationRef = useRef<{ y: number }>({ y: 0 });
   const numBoxes = 250;
+  const gridSize = Math.ceil(Math.sqrt(numBoxes));
+  const spacing = 1.5;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsGrid(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useFrame((state, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.x += delta * 0.1;
-      groupRef.current.rotation.y += delta * 0.15;
+    if (!isGrid) {
+      rotationRef.current.y += delta * 0.5;
     }
   });
 
   const boxes = [];
   for (let i = 0; i < numBoxes; i++) {
+    const gridX = (i % gridSize - gridSize / 2) * spacing;
+    const gridY = (Math.floor(i / gridSize) - gridSize / 2) * spacing;
+    const gridZ = 0;
+
     const phi = Math.acos(-1 + (2 * i) / numBoxes);
     const theta = Math.sqrt(numBoxes * Math.PI) * phi;
-
-    const x = radius * Math.cos(theta) * Math.sin(phi);
-    const y = radius * Math.sin(theta) * Math.sin(phi);
-    const z = radius * Math.cos(phi);
+    const sphereX = 5 * Math.cos(theta) * Math.sin(phi);
+    const sphereY = 5 * Math.sin(theta) * Math.sin(phi);
+    const sphereZ = 5 * Math.cos(phi);
 
     boxes.push(
-      <Box 
-        key={i} 
-        position={[x, y, z]} 
-        width={boxWidth}
-        height={boxHeight}
-        depth={boxDepth}
-        number={i + 1}
-      />
+      <motion.group
+        key={i}
+        initial={{ x: gridX, y: gridY, z: gridZ }}
+        animate={{
+          x: isGrid ? gridX : sphereX,
+          y: isGrid ? gridY : sphereY,
+          z: isGrid ? gridZ : sphereZ,
+          rotateY: rotationRef.current.y,
+        }}
+        transition={{ duration: 2, ease: "easeInOut" }}
+      >
+        <Box
+          width={1}
+          height={1}
+          depth={0.5}
+          number={i + 1}
+        />
+      </motion.group>
     );
   }
 
-  return <group ref={groupRef}>{boxes}</group>;
+  return <group>{boxes}</group>;
 }
 
 interface BoxProps extends MeshProps {
