@@ -1,20 +1,43 @@
 'use client'
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import { Vector3, Mesh, DirectionalLight, Group } from "three";
-import { Canvas, useFrame, useThree, MeshProps } from "@react-three/fiber";
-import { PerspectiveCamera, Text } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { PerspectiveCamera, Html } from "@react-three/drei";
 import { motion } from "framer-motion-3d";
+import Css3Icon from './icons/css3';
+import DatabaseIcon from './icons/database';
+import DockerIcon from './icons/docker';
+import GitIcon from './icons/git';
+import JavaScriptIcon from './icons/javascript';
+import NextjsIcon from './icons/nextjs';
+import ReactIcon from './icons/react';
+import SassIcon from './icons/sass';
+import TailwindIcon from './icons/tailwind';
+import TypeScriptIcon from './icons/typescript';
+
+const icons = [
+  Css3Icon,
+  DatabaseIcon,
+  DockerIcon,
+  GitIcon,
+  JavaScriptIcon,
+  NextjsIcon,
+  ReactIcon,
+  SassIcon,
+  TailwindIcon,
+  TypeScriptIcon
+];
 
 export default function Home() {
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
-      <Canvas>
+    <div className="w-full h-[100vh]">
+      <Canvas className="bg-[#0f1729]">
         <PerspectiveCamera makeDefault position={[0, 0, 20]} />
-        <ambientLight intensity={.8} />
-        <pointLight position={[10, 10, 10]} intensity={0.5} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
-        <pointLight position={[0, 0, 0]} intensity={0.5} />
+        <ambientLight intensity={0.3} />
+        <pointLight position={[10, 10, 10]} intensity={0.3} />
+        <pointLight position={[-10, -10, -10]} intensity={0.3} />
+        <pointLight position={[0, 0, 0]} intensity={0.3} />
         <FixedDirectionalLight />
         <BoxSphere />
       </Canvas>
@@ -83,12 +106,7 @@ function BoxSphere() {
         }}
         transition={{ duration: 2, ease: "easeInOut" }}
       >
-        <Box
-          width={1}
-          height={1}
-          depth={0.5}
-          number={i + 1}
-        />
+        <Box width={1} height={1} depth={0.5} />
       </motion.group>
     );
   }
@@ -96,15 +114,16 @@ function BoxSphere() {
   return <group ref={groupRef}>{boxes}</group>;
 }
 
-interface BoxProps extends MeshProps {
+interface BoxProps {
   width: number;
   height: number;
   depth: number;
-  number: number;
 }
 
-function Box({ width, height, depth, number, ...props }: BoxProps) {
+function Box({ width, height, depth }: BoxProps) {
   const meshRef = useRef<Mesh>(null);
+  
+  const Icon = useMemo(() => icons[Math.floor(Math.random() * icons.length)], []);
 
   useFrame(() => {
     if (meshRef.current) {
@@ -114,18 +133,17 @@ function Box({ width, height, depth, number, ...props }: BoxProps) {
   });
 
   return (
-    <mesh ref={meshRef} {...props}>
+    <mesh ref={meshRef}>
       <boxGeometry args={[width, height, depth]} />
-      <meshStandardMaterial color="orange" emissive="orange" emissiveIntensity={0.2} />
-      <Text
+      <meshStandardMaterial color="#c8cad0" emissive="#c8cad0" emissiveIntensity={0.2} />
+      <Html
+        transform
+        occlude
         position={[0, 0, depth / 2 + 0.01]}
-        fontSize={height * 0.5}
-        color="black"
-        anchorX="center"
-        anchorY="middle"
+        className="w-full h-full flex justify-center items-center"
       >
-        {number}
-      </Text>
+        <Icon width={30} height={30} />
+      </Html>
     </mesh>
   );
 }
