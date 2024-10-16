@@ -3,10 +3,7 @@ import { FloatingNav } from "./ui/floating-navbar";
 export default function Header() {
   return (
     <header>
-      <FloatingNav 
-        navItems={navItems}
-        className="isolate bg-white/20 shadow-lg ring-1 ring-black/5"
-      />
+      <FloatingNav navItems={navItems} />
     </header>
   );
 }

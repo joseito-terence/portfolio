@@ -23,7 +23,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-[#060910] text-white relative overflow-hidden">
+    <div className="w-full min-h-screen bg-[#060910] text-white overflow-hidden">
       {/* Sphere background */}
       <div className="fixed inset-0 z-0">
         <Canvas>
@@ -48,24 +48,27 @@ export default function Home() {
             <h2 className="text-4xl font-bold"></h2>
           </motion.div>
         ) : (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative z-10 min-h-screen overflow-y-auto"
-          >
-            <div className="backdrop-blur-sm bg-[#0f1729]/10">
-              <Header />
-              <main>
-                <HeroSection />
-                <About />
-                <Projects />
-                <Experience />
-                <Contact />
-              </main>
-            </div>
-          </motion.div>
+          <>
+            <Header />
+
+            <motion.div
+              key="content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="z-10 min-h-screen overflow-y-auto"
+            >
+              <div className="backdrop-blur-sm bg-[#0f1729]/10">
+                <main>
+                  <HeroSection />
+                  <About />
+                  <Projects />
+                  <Experience />
+                  <Contact />
+                </main>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>
@@ -76,7 +79,7 @@ export default function Home() {
 function FixedDirectionalLight() {
   const lightRef = useRef<DirectionalLight>(null);
   const { camera } = useThree();
-  
+
   useEffect(() => {
     const light = lightRef.current;
     if (light) {
