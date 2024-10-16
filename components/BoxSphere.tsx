@@ -3,29 +3,9 @@ import { Vector3, Mesh, Group } from "three";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { motion } from "framer-motion-3d";
-import Css3Icon from '../icons/css3';
-import DatabaseIcon from '../icons/database';
-import DockerIcon from '../icons/docker';
-import GitIcon from '../icons/git';
-import JavaScriptIcon from '../icons/javascript';
-import NextjsIcon from '../icons/nextjs';
-import ReactIcon from '../icons/react';
-import SassIcon from '../icons/sass';
-import TailwindIcon from '../icons/tailwind';
-import TypeScriptIcon from '../icons/typescript';
+import { skills } from "@/app/constants";
 
-const icons = [
-  Css3Icon,
-  DatabaseIcon,
-  DockerIcon,
-  GitIcon,
-  JavaScriptIcon,
-  NextjsIcon,
-  ReactIcon,
-  SassIcon,
-  TailwindIcon,
-  TypeScriptIcon
-];
+const icons = skills.map(skill => skill.icon);
 
 export default function BoxSphere() {
   const [isGrid, setIsGrid] = useState(true);
