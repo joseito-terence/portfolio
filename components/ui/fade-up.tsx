@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 export function FadeUp({
   children,
   delay = 0,
-  duration = 1.5,
+  duration = 1,
 }: {
   children: ReactNode;
   delay?: number;
