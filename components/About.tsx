@@ -3,10 +3,11 @@ import ProgrammerModel from "@/components/ProgrammerModel";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { metadata } from "@/app/constants";
 import { useMediaQuery } from 'react-responsive'
+import { FadeUp } from "./ui/fade-up";
 
 export default function About() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 768px)' })
-  
+
   return (
     <section className="bg-primary ">
       <div className="mx-auto max-w-screen-xl lg:flex lg:flex-row">
@@ -20,10 +21,14 @@ export default function About() {
         </div>
 
         <div className="flex-1 p-12 flex flex-col justify-center items-start">
-          <h2 className="text-3xl font-bold mb-4">About Me</h2>
-          <p className="text-lg">
-            {metadata.description}
-          </p>
+          <FadeUp>
+            <h2 className="text-3xl font-bold mb-4">About Me</h2>
+          </FadeUp>
+          <FadeUp delay={0.5}>
+            <p className="text-lg">
+              {metadata.description}
+            </p>
+          </FadeUp>
         </div>
       </div>
     </section>
