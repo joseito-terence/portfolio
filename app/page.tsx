@@ -12,6 +12,7 @@ import Experience from "../components/Experience";
 import Contact from "../components/Contact";
 import { DirectionalLight } from "three";
 import HeroSection from "@/components/HeroSection";
+import ResumeSection from "@/components/ResumeSection";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-[#060910] text-white overflow-hidden">
+    <div className="w-full min-h-screen bg-primary text-white overflow-hidden">
       {/* Sphere background */}
       <div className="fixed inset-0 z-0">
         <Canvas>
@@ -61,6 +62,7 @@ export default function Home() {
               <div className="backdrop-blur-sm bg-[#0f1729]/10">
                 <main>
                   <HeroSection />
+                  <ResumeSection />
                   <About />
                   <Projects />
                   <Experience />
