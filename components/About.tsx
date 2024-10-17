@@ -1,22 +1,37 @@
 import { Canvas } from "@react-three/fiber"
 import ProgrammerModel from "@/components/ProgrammerModel";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { metadata } from "@/app/constants";
 import { useMediaQuery } from 'react-responsive'
 import { FadeUp } from "./ui/fade-up";
+import { motion } from "framer-motion-3d"
+import { useInView } from "framer-motion"
+import { useRef } from "react";
 
 export default function About() {
+  const ref = useRef(null)
+  const isInView = useInView(ref)
   const isLargeScreen = useMediaQuery({ query: '(min-width: 768px)' })
 
   return (
     <section className="bg-primary ">
       <div className="mx-auto max-w-screen-xl lg:flex lg:flex-row">
-        <div className="flex-1">
+        <div ref={ref} className="flex-1">
           <Canvas style={{ height: isLargeScreen ? 600 : 300 }}>
             <ambientLight intensity={1} />
-            <PerspectiveCamera makeDefault position={[0, 0, 4]} />
             <OrbitControls enabled={isLargeScreen} />
-            <ProgrammerModel />
+            
+            <motion.group
+              variants={{
+                hidden: { scale: 0 },
+                visible: { scale: 2.5 }
+              }}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              transition={{ duration: 2 }}
+            >
+              <ProgrammerModel />
+            </motion.group>
           </Canvas>
         </div>
 

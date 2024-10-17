@@ -15,7 +15,7 @@ export default function BoxSphere() {
   const spacing = 1.5;
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsGrid(false), 2000);
+    const timer = setTimeout(() => setIsGrid(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 

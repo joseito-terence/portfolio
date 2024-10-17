@@ -8,7 +8,6 @@ import BoxSphere from "../components/BoxSphere";
 import Header from "../components/Header";
 import About from "../components/About";
 import Projects from "../components/Projects";
-import Experience from "../components/Experience";
 import Contact from "../components/Contact";
 import { DirectionalLight } from "three";
 import HeroSection from "@/components/HeroSection";
@@ -20,7 +19,7 @@ export default function Home() {
 
   useEffect(() => {
     // Simulate loading time
-    const timer = setTimeout(() => setLoading(false), 3500);
+    const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -40,16 +39,7 @@ export default function Home() {
       </div>
 
       <AnimatePresence>
-        {loading ? (
-          <motion.div
-            key="loader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-20 flex items-center justify-center"
-          >
-            <h2 className="text-4xl font-bold"></h2>
-          </motion.div>
-        ) : (
+        {!loading && (
           <>
             <Header />
 
@@ -67,7 +57,6 @@ export default function Home() {
                   <About />
                   <Skills />
                   <Projects />
-                  {/* <Experience /> */}
                   <Contact />
                 </main>
               </div>
