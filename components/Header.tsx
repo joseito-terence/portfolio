@@ -14,11 +14,16 @@ const navItems = [
     link: "/",
   },
   {
-    name: "Projects",
-    link: "/projects",
+    name: "About",
+    link: "#about",
   },
   {
-    name: "About",
-    link: "/about",
+    name: "Skills",
+    link: "#skills",
   },
+  {
+    name: "Projects",
+    link: "#projects",
+  },
+
 ];
