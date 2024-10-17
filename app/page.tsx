@@ -13,6 +13,7 @@ import Contact from "../components/Contact";
 import { DirectionalLight } from "three";
 import HeroSection from "@/components/HeroSection";
 import ResumeSection from "@/components/ResumeSection";
+import Skills from "@/components/Skills";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -64,6 +65,7 @@ export default function Home() {
                   <HeroSection />
                   <ResumeSection />
                   <About />
+                  <Skills />
                   <Projects />
                   <Experience />
                   <Contact />

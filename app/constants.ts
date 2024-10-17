@@ -16,14 +16,14 @@ export const metadata: Metadata = {
 };
 
 export const skills = [
-  { name: 'React', icon: ReactIcon },
-  { name: 'Sass', icon: SassIcon },
-  { name: 'Javascript', icon: JavaScriptIcon },
-  { name: 'CSS', icon: Css3Icon },
-  { name: 'Tailwind', icon: TailwindIcon },
-  { name: 'Typescript', icon: TypeScriptIcon },
-  { name: 'NextJS', icon: NextjsIcon },
-  { name: 'Docker', icon: DockerIcon },
-  { name: 'Git', icon: GitIcon },
-  { name: 'Database', icon: DatabaseIcon }
+  { name: 'React', Icon: ReactIcon },
+  { name: 'NextJS', Icon: NextjsIcon },
+  { name: 'Typescript', Icon: TypeScriptIcon },
+  { name: 'Javascript', Icon: JavaScriptIcon },
+  { name: 'Tailwind', Icon: TailwindIcon },
+  { name: 'Sass', Icon: SassIcon },
+  { name: 'CSS', Icon: Css3Icon },
+  { name: 'Docker', Icon: DockerIcon },
+  { name: 'Git', Icon: GitIcon },
+  { name: 'SQL', Icon: DatabaseIcon }
 ]

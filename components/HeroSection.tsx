@@ -43,7 +43,7 @@ export default function HeroSection() {
         }}
         className="text-lg px-4 md:text-xl lg:text-2xl text-white max-w-4xl text-center mx-auto"
       >
-        Expert in building Mobile apps, Web apps, APIs, and more.
+        Experienced in building Mobile apps, Web apps, APIs, and more.
       </motion.p>
     </HeroHighlight>
   );

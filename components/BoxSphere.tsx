@@ -5,7 +5,7 @@ import { Html } from "@react-three/drei";
 import { motion } from "framer-motion-3d";
 import { skills } from "@/app/constants";
 
-const icons = skills.map(skill => skill.icon);
+const icons = skills.map(skill => skill.Icon);
 
 export default function BoxSphere() {
   const [isGrid, setIsGrid] = useState(true);
