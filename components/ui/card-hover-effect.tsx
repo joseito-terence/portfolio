@@ -15,7 +15,7 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-10",
+        "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-4",
         className
       )}
     >
@@ -44,7 +44,12 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <Icon width={100} height={100} />
+            <Icon 
+              width={100}
+              height={100}
+              fill={item.accent}
+              className="w-12 h-12 md:w-20 md:h-20"
+            />
             <CardTitle>{item.name}</CardTitle>
           </Card>
         </div>
@@ -63,7 +68,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-white/[0.2] group-hover:border-slate-700 relative z-20",
+        "rounded-2xl h-full w-full p-4 overflow-hidden bg-primary border border-white/[0.2] group-hover:border-slate-700 relative z-20 flex justify-center items-center",
         className
       )}
     >
@@ -82,7 +87,7 @@ export const CardTitle = ({
   children: React.ReactNode;
 }) => {
   return (
-    <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
+    <h4 className={cn("text-zinc-100 text-center font-bold tracking-wide mt-4", className)}>
       {children}
     </h4>
   );

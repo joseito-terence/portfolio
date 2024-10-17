@@ -16,14 +16,54 @@ export const metadata: Metadata = {
 };
 
 export const skills = [
-  { name: 'React', Icon: ReactIcon },
-  { name: 'NextJS', Icon: NextjsIcon },
-  { name: 'Typescript', Icon: TypeScriptIcon },
-  { name: 'Javascript', Icon: JavaScriptIcon },
-  { name: 'Tailwind', Icon: TailwindIcon },
-  { name: 'Sass', Icon: SassIcon },
-  { name: 'CSS', Icon: Css3Icon },
-  { name: 'Docker', Icon: DockerIcon },
-  { name: 'Git', Icon: GitIcon },
-  { name: 'SQL', Icon: DatabaseIcon }
+  { 
+    name: 'React / React Native',
+    Icon: ReactIcon,
+    accent: '#60c7de',
+  },
+  {
+    name: 'NextJS',
+    Icon: NextjsIcon,
+    accent: '#ffffff',
+  },
+  {
+    name: 'Typescript',
+    Icon: TypeScriptIcon,
+    accent: '#007acc',
+  },
+  {
+    name: 'Javascript',
+    Icon: JavaScriptIcon,
+    accent: '#f0db4f',
+  },
+  {
+    name: 'Tailwind',
+    Icon: TailwindIcon,
+    accent: '#06b6d4',
+  },
+  {
+    name: 'Sass',
+    Icon: SassIcon,
+    accent: '#cc6699',
+  },
+  {
+    name: 'CSS',
+    Icon: Css3Icon,
+    accent: '#379ad6',
+  },
+  {
+    name: 'Docker',
+    Icon: DockerIcon,
+    accent: '#2496ed',
+  },
+  {
+    name: 'Git',
+    Icon: GitIcon,
+    accent: '#f34f29',
+  },
+  {
+    name: 'SQL',
+    Icon: DatabaseIcon,
+    accent: '#4479a1',
+  }
 ]
