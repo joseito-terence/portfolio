@@ -3,6 +3,32 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
+const containerVariants = {
+  hidden: { opacity: 0, },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.3,
+      type: 'spring',
+      stiffness: 400,
+      damping: 40,
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeInOut'
+    },
+  },
+}
+
 export const HoverEffect = ({
   items,
   className,
@@ -13,18 +39,23 @@ export const HoverEffect = ({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div
+    <motion.div
       className={cn(
         "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-4",
         className
       )}
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
     >
       {items.map(({ Icon, ...item }, idx) => (
-        <div
+        <motion.div
           key={item.name}
           className="relative group block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
+          variants={itemVariants}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
@@ -52,9 +83,9 @@ export const HoverEffect = ({
             />
             <CardTitle>{item.name}</CardTitle>
           </Card>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
