@@ -1,20 +1,16 @@
-export default function Projects() {
-  const projects = [
-    { title: "Project 1", description: "Description of project 1" },
-    { title: "Project 2", description: "Description of project 2" },
-    // Add more projects as needed
-  ];
+import projects from "@/app/projects";
+import { ProjectCard } from "./ProjectCard";
 
+export default function Projects() {
   return (
-    <section className="my-12">
-      <h2 className="text-3xl font-semibold mb-4">Projects</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project, index) => (
-          <div key={index} className="bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-            <p>{project.description}</p>
-          </div>
-        ))}
+    <section className="">
+      <div className="mx-auto max-w-screen-xl px-9 xl:px-0">
+        <h2 className="font-bold text-4xl px-4 pb-6">Projects</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5 gap-6">
+          {projects.map((project, index) => (
+            <ProjectCard key={index} project={project} />
+          ))}
+        </div>
       </div>
     </section>
   );
