@@ -2,7 +2,7 @@
 const projects = [
   {
     title: "Caverno",
-    description: "Songs archive app with some cool animations and interactions built with Moti, Reanimated and Gesture Handler.",
+    description: "Songs archive app with some cool animations and interactions.",
     image: "/projects/caverno.gif",
     tags: [
       "React Native/Expo Router",
