@@ -36,7 +36,7 @@ const projects = [
   },
   {
     title: "Infofest 2023",
-    description: "Website for a National level tech event organized by the DCST Students of Goa University.",
+    description: "Website for a National level tech event organized by the Computer Science students of Goa University.",
     image: "/projects/infofest23mockup.jpg",
     tags: [
       "React",
