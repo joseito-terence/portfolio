@@ -4,7 +4,7 @@ import { HeroHighlight, Highlight } from "./ui/hero-highlight";
 
 export default function HeroSection() {
   return (
-    <HeroHighlight className="flex flex-col gap-4">
+    <HeroHighlight className="flex flex-col gap-4 relative">
       <motion.h1
         initial={{
           opacity: 0,
@@ -45,6 +45,17 @@ export default function HeroSection() {
       >
         Experienced in building Mobile apps, Web apps, APIs, and more.
       </motion.p>
+      <ScrollDown />
     </HeroHighlight>
   );
 }
+
+const ScrollDown = () => (
+  <div className="mx-auto absolute bottom-[-150%] left-[50%] -ml-[30px]">
+    <svg className="w-[60px] h-[72px]">
+      <path className="stroke-white fill-none animate-pulse [animation-delay:-1s]" d="M0 0 L30 32 L60 0"></path>
+      <path className="stroke-white fill-none animate-pulse [animation-delay:-0.5s]" d="M0 20 L30 52 L60 20"></path>
+      <path className="stroke-white fill-none animate-pulse" d="M0 40 L30 72 L60 40"></path>
+    </svg>
+  </div>
+)
