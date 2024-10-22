@@ -9,6 +9,8 @@ import ReactIcon from '../icons/react';
 import SassIcon from '../icons/sass';
 import TailwindIcon from '../icons/tailwind';
 import TypeScriptIcon from '../icons/typescript';
+import NodejsIcon from "../icons/nodejs";
+import TamaguiIcon from "@/icons/tamagui";
 
 export const metadata: Metadata = {
   title: "Joseito Fernandes",
@@ -34,6 +36,16 @@ export const skills = [
   {
     name: 'Javascript',
     Icon: JavaScriptIcon,
+    accent: '#f0db4f',
+  },
+  {
+    name: 'NodeJS',
+    Icon: NodejsIcon,
+    accent: '#68a063',
+  },
+  {
+    name: 'Tamagui',
+    Icon: TamaguiIcon,
     accent: '#f0db4f',
   },
   {

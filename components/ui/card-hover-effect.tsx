@@ -41,7 +41,7 @@ export const HoverEffect = ({
   return (
     <motion.div
       className={cn(
-        "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 py-4",
+        "grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 py-4",
         className
       )}
       variants={containerVariants}
