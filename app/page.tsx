@@ -43,24 +43,20 @@ export default function Home() {
           <>
             <Header />
 
-            <motion.div
+            <motion.main
               key="content"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className="z-10 min-h-screen overflow-y-auto"
+              className="z-10 min-h-screen overflow-y-auto backdrop-blur-sm bg-[#0f1729]/10"
             >
-              <div className="backdrop-blur-sm bg-[#0f1729]/10">
-                <main>
-                  <HeroSection />
-                  <ResumeSection />
-                  <About />
-                  <Skills />
-                  <Projects />
-                  <Contact />
-                </main>
-              </div>
-            </motion.div>
+              <HeroSection />
+              <ResumeSection />
+              <About />
+              <Skills />
+              <Projects />
+              <Contact />
+            </motion.main>
           </>
         )}
       </AnimatePresence>
