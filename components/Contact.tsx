@@ -14,8 +14,8 @@ import { FadeUp } from "./ui/fade-up";
 import useClipboard from "react-use-clipboard";
 
 export const socials = [
-  { name: 'Github', link: 'https://github.com/joseito-terence', Icon: IconBrandGithub },
-  { name: 'LinkedIn', link: 'https://www.linkedin.com/in/joseito-terence', Icon: IconBrandLinkedin }
+  { name: 'LinkedIn', link: 'https://www.linkedin.com/in/joseito-terence', Icon: IconBrandLinkedin },
+  { name: 'Github', link: 'https://github.com/joseito-terence', Icon: IconBrandGithub }
 ];
 
 export default function Contact() {
@@ -44,7 +44,7 @@ export default function Contact() {
 
         <div className="flex flex-row flex-wrap justify-center gap-10 md:-mt-40 z-40">
           <FadeUp duration={1.5}>
-            <Card
+            <ContactCard
               text="joseito.terence@gmail.com"
               link="mailto:joseito.terence@gmail.com"
               Icon={IconMail}
@@ -52,11 +52,28 @@ export default function Contact() {
           </FadeUp>
 
           <FadeUp duration={1.5} delay={0.5}>
-            <Card
+            <ContactCard
               text="+44 7867 633529"
               link="tel:+447867633529"
               Icon={IconPhone}
             />
+          </FadeUp>
+
+          <FadeUp duration={1.5} delay={1}>
+            <Card>
+              <div className="flex flex-row justify-center items-center gap-5 mx-auto h-[94px]">
+                {socials.map(({ name, link, Icon }) => (
+                  <a
+                    key={name}
+                    href={link}
+                    target="_blank"
+                    className="w-full flex items-center justify-between border border-gray-500 rounded-full p-4 hover:bg-sky-50/15"
+                  >
+                    <Icon size={35} />
+                  </a>
+                ))}
+              </div>
+            </Card>
           </FadeUp>
         </div>
       </div>
@@ -64,7 +81,7 @@ export default function Contact() {
   );
 }
 
-export function Card({
+const ContactCard = ({
   text,
   link,
   Icon,
@@ -72,37 +89,45 @@ export function Card({
   text: string;
   link: string;
   Icon: typeof IconMail;
-}) {
+}) => {
   const [isCopied, setIsCopied] = useClipboard(text, {
     successDuration: 1000,
   });
 
   return (
-    <div>
-      <div className="w-full relative min-w-[300px]">
-        <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl" />
-        <div className="relative shadow-xl bg-gray-900 border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
-          <div className="w-full flex items-center justify-between mb-4">
-            <Icon size={30} />
+    <Card>
+      <div className="w-full flex items-center justify-between mb-4">
+        <Icon size={30} />
 
-            <button onClick={setIsCopied} className="aspect-square border px-2 py-1 rounded-lg  border-gray-500 text-gray-300">
-              {isCopied
-                ? <IconCheck size={20} />
-                : <IconCopy size={20} />
-              }
-            </button>
-          </div>
+        <button onClick={setIsCopied} className="aspect-square border px-2 py-1 rounded-lg  border-gray-500 text-gray-300">
+          {isCopied
+            ? <IconCheck size={20} />
+            : <IconCopy size={20} />
+          }
+        </button>
+      </div>
 
-          <h1 className="w-full font-bold text-xl text-center text-white mb-4 relative z-50">
-            <a href={link}>
-              {text}
-            </a>
-          </h1>
+      <h1 className="w-full font-bold text-xl text-center text-white mb-4 relative z-50">
+        <a href={link}>
+          {text}
+        </a>
+      </h1>
+    </Card>
+  )
+}
 
-
-        </div>
+const Card = ({
+  children,
+}: {
+  children?: React.ReactNode;
+}) => (
+  <div>
+    <div className="w-full relative min-w-[300px]">
+      <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl" />
+      <div className="relative shadow-xl bg-gray-900 border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
+        {children}
       </div>
     </div>
-  );
-}
+  </div>
+)
 
