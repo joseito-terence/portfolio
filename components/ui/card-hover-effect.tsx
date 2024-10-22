@@ -80,7 +80,7 @@ export const HoverEffect = ({
               height={100}
               fill={item.accent}
               className="w-12 h-12 md:w-20 md:h-20 group-hover:drop-shadow-[0_0_1.5px_var(--accent)] transition-all"
-              // @ts-ignore
+              // @ts-expect-error
               style={{ '--accent': item.accent }}
             />
             <CardTitle>{item.name}</CardTitle>
