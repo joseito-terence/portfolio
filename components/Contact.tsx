@@ -61,15 +61,15 @@ export default function Contact() {
 
           <FadeUp duration={1.5} delay={1}>
             <Card>
-              <div className="flex flex-row justify-center items-center gap-5 mx-auto h-[94px]">
+              <div className="flex flex-row justify-center items-center gap-5 mx-auto px-4 py-7">
                 {socials.map(({ name, link, Icon }) => (
                   <a
                     key={name}
                     href={link}
                     target="_blank"
-                    className="w-full flex items-center justify-between border border-gray-500 rounded-full p-4 hover:bg-sky-50/15"
+                    className="w-full flex items-center justify-between border border-gray-500 rounded-full p-2 hover:bg-sky-50/15"
                   >
-                    <Icon size={35} />
+                    <Icon size={28} />
                   </a>
                 ))}
               </div>
@@ -96,8 +96,14 @@ const ContactCard = ({
 
   return (
     <Card>
-      <div className="w-full flex items-center justify-between mb-4">
+      <div className="w-full flex items-center justify-between gap-4 px-4 py-8">
         <Icon size={30} />
+
+        <h1 className="w-full font-bold text-xl text-center text-white relative z-50">
+        <a href={link}>
+          {text}
+        </a>
+      </h1>
 
         <button onClick={setIsCopied} className="aspect-square border px-2 py-1 rounded-lg  border-gray-500 text-gray-300">
           {isCopied
@@ -105,13 +111,7 @@ const ContactCard = ({
             : <IconCopy size={20} />
           }
         </button>
-      </div>
-
-      <h1 className="w-full font-bold text-xl text-center text-white mb-4 relative z-50">
-        <a href={link}>
-          {text}
-        </a>
-      </h1>
+      </div>      
     </Card>
   )
 }
@@ -124,7 +124,7 @@ const Card = ({
   <div>
     <div className="w-full relative min-w-[300px]">
       <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl" />
-      <div className="relative shadow-xl bg-gray-900 border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
+      <div className="relative shadow-xl bg-gray-900 border border-gray-800 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
         {children}
       </div>
     </div>
