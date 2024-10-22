@@ -14,7 +14,7 @@ export default function About() {
   const isLargeScreen = useMediaQuery({ query: '(min-width: 768px)' })
 
   return (
-    <section className="bg-primary ">
+    <section id="about" className="bg-primary ">
       <div className="mx-auto max-w-screen-xl lg:flex lg:flex-row">
         <div ref={ref} className="flex-1">
           <Canvas style={{ height: isLargeScreen ? 600 : 300 }}>
