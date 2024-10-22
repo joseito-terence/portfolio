@@ -76,10 +76,10 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card>
             <Icon 
-              width={100}
-              height={100}
+              width={50}
+              height={50}
               fill={item.accent}
-              className="w-12 h-12 md:w-20 md:h-20 group-hover:drop-shadow-[0_0_1.5px_var(--accent)] transition-all"
+              className="w-8 h-8 group-hover:drop-shadow-[0_0_1.5px_var(--accent)] transition-all"
               // @ts-expect-error
               style={{ '--accent': item.accent }}
             />
@@ -120,7 +120,7 @@ export const CardTitle = ({
   children: React.ReactNode;
 }) => {
   return (
-    <h4 className={cn("text-zinc-100 text-center font-bold tracking-wide mt-4", className)}>
+    <h4 className={cn("text-zinc-100 text-sm text-center font-bold tracking-wide mt-4", className)}>
       {children}
     </h4>
   );
