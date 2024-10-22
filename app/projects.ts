@@ -97,7 +97,7 @@ const projects = [
   },
   {
     title: "myExpenses",
-    description: "An easy to use expense tracker. Originally built in PHP for a intra-college competition where it won the 2nd prize and later rebuilt in React.",
+    description: "An easy to use expense tracker. Originally built with PHP for a intra-college competition where I won the 2nd prize and later rebuilt it with React.",
     image: "https://github.com/joseito-terence/myexpenses/raw/master/images/Screenshot-mobile-screens.png",
     tags: [
       "React",
