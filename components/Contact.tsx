@@ -5,11 +5,13 @@ import {
   IconMail,
   IconPhone,
   IconCopy,
+  IconCheck,
 } from "@tabler/icons-react";
 import { TextHoverEffect } from "./ui/text-hover-effect";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { FadeUp } from "./ui/fade-up";
+import useClipboard from "react-use-clipboard";
 
 export const socials = [
   { name: 'Github', link: 'https://github.com/joseito-terence', Icon: IconBrandGithub },
@@ -69,8 +71,12 @@ export function Card({
 }: {
   text: string;
   link: string;
-  Icon?: typeof IconMail;
+  Icon: typeof IconMail;
 }) {
+  const [isCopied, setIsCopied] = useClipboard(text, {
+    successDuration: 1000,
+  });
+
   return (
     <div>
       <div className="w-full relative min-w-[300px]">
@@ -79,8 +85,11 @@ export function Card({
           <div className="w-full flex items-center justify-between mb-4">
             <Icon size={30} />
 
-            <button className="aspect-square border px-2 py-1 rounded-lg  border-gray-500 text-gray-300">
-              <IconCopy size={20} />
+            <button onClick={setIsCopied} className="aspect-square border px-2 py-1 rounded-lg  border-gray-500 text-gray-300">
+              {isCopied
+                ? <IconCheck size={20} />
+                : <IconCopy size={20} />
+              }
             </button>
           </div>
 
