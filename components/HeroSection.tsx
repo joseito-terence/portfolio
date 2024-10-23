@@ -51,7 +51,7 @@ export default function HeroSection() {
 }
 
 const ScrollDown = () => (
-  <div className="mx-auto absolute bottom-[-150%] left-[50%] -ml-[30px]">
+  <div className="mx-auto absolute bottom-[-150%] left-[50%] -ml-[30px] scale-75 md:scale-100">
     <svg className="w-[60px] h-[72px]">
       <path className="stroke-white fill-none animate-pulse [animation-delay:-1s]" d="M0 0 L30 32 L60 0"></path>
       <path className="stroke-white fill-none animate-pulse [animation-delay:-0.5s]" d="M0 20 L30 52 L60 20"></path>
