@@ -11,13 +11,13 @@ import { useRef } from "react";
 export default function About() {
   const ref = useRef(null)
   const isInView = useInView(ref)
-  const isLargeScreen = useMediaQuery({ query: '(min-width: 768px)' })
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 1024px)' })
 
   return (
-    <section id="about" className="bg-primary ">
+    <section id="about" className="bg-primary">
       <div className="mx-auto max-w-screen-xl lg:flex lg:flex-row">
-        <div ref={ref} className="flex-1">
-          <Canvas style={{ height: isLargeScreen ? 600 : 300 }}>
+        <div ref={ref} className="flex-1 w-screen lg:w-[55vw]"  style={{ height: isLargeScreen ? 600 : 300 }}>
+          <Canvas>
             <ambientLight intensity={1} />
             <OrbitControls enabled={isLargeScreen} />
             
