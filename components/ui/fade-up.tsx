@@ -7,10 +7,12 @@ export function FadeUp({
   children,
   delay = 0,
   duration = 1,
+  className = '',
 }: {
   children: ReactNode;
   delay?: number;
   duration?: number;
+  className?: string;
 }) {
   return (
     <motion.div
@@ -28,6 +30,7 @@ export function FadeUp({
       whileInView="visible"
       viewport={{ once: true, amount: 0.8 }}
       transition={{ delay, type: "spring", duration }}
+      className={className}
     >
       {children}
     </motion.div>
