@@ -42,8 +42,8 @@ export default function Contact() {
           }
         </div>
 
-        <div className="flex flex-row flex-wrap justify-center gap-10 md:-mt-40 z-40">
-          <FadeUp duration={1.5}>
+        <div className="flex flex-row flex-wrap justify-center gap-10 md:-mt-48 z-40 transition-all">
+          <FadeUp duration={1.5} className="md:order-1">
             <ContactCard
               text="joseito.terence@gmail.com"
               link="mailto:joseito.terence@gmail.com"
@@ -51,7 +51,7 @@ export default function Contact() {
             />
           </FadeUp>
 
-          <FadeUp duration={1.5} delay={0.5}>
+          <FadeUp duration={1.5} delay={1} className="md:order-3">
             <ContactCard
               text="+44 7867 633529"
               link="tel:+447867633529"
@@ -59,9 +59,9 @@ export default function Contact() {
             />
           </FadeUp>
 
-          <FadeUp duration={1.5} delay={1}>
+          <FadeUp duration={1.5} delay={0.5} className="md:order-2">
             <Card>
-              <div className="flex flex-row justify-center items-center gap-5 mx-auto px-4 py-7">
+              <div className="flex flex-row justify-center items-center gap-5 mx-auto px-8 py-3">
                 {socials.map(({ name, link, Icon }) => (
                   <a
                     key={name}
@@ -96,7 +96,7 @@ const ContactCard = ({
 
   return (
     <Card>
-      <div className="w-full flex items-center justify-between gap-4 px-4 py-8">
+      <div className="w-full flex items-center justify-between gap-4 px-8 py-4">
         <Icon size={30} />
 
         <h1 className="w-full font-bold text-xl text-center text-white relative z-50">
@@ -122,9 +122,9 @@ const Card = ({
   children?: React.ReactNode;
 }) => (
   <div>
-    <div className="w-full relative min-w-[300px]">
-      <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl" />
-      <div className="relative shadow-xl bg-gray-900 border border-gray-800 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
+    <div className="w-full relative">
+      <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-y-[0.5] scale-x-[0.9] bg-red-500 rounded-full blur-3xl" />
+      <div className="relative shadow-xl bg-primary border border-gray-800 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
         {children}
       </div>
     </div>
