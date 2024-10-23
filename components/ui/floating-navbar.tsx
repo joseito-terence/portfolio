@@ -69,7 +69,7 @@ export const FloatingNav = ({
             )}
           >
             <span className="block sm:hidden">{navItem.icon}</span>
-            <span className="hidden sm:block text-sm">{navItem.name}</span>
+            <span className="block text-sm">{navItem.name}</span>
           </Link>
         ))}
         <Link href='#contact' className="border text-sm font-medium relative border-white/[0.2] text-white px-4 py-2 rounded-full">
