@@ -1,9 +1,10 @@
 import { useRef, useEffect, useState, useMemo } from "react";
-import { Vector3, Mesh, Group } from "three";
-import { useFrame } from "@react-three/fiber";
-import { Html } from "@react-three/drei";
+import { Vector3, Mesh, Group, DirectionalLight } from "three";
+import { useFrame, Canvas, useThree } from "@react-three/fiber";
+import { Html, PerspectiveCamera } from "@react-three/drei";
 import { motion } from "framer-motion-3d";
 import { skills } from "@/app/constants";
+import { useMediaQuery } from "react-responsive";
 
 const icons = skills.map(skill => skill.Icon);
 
@@ -11,7 +12,25 @@ const numBoxes = 250;
 const gridSize = Math.ceil(Math.sqrt(numBoxes));
 const spacing = 1.5;
 
-export default function BoxSphere() {
+export default function Background3d() {
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 786px)' })
+
+  return isLargeScreen && (
+    <div className="fixed inset-0 z-0">
+      <Canvas>
+        <PerspectiveCamera makeDefault position={[0, 0, 20]} />
+        <ambientLight intensity={0.3} />
+        <pointLight position={[10, 10, 10]} intensity={0.3} />
+        <pointLight position={[-10, -10, -10]} intensity={0.3} />
+        <pointLight position={[0, 0, 0]} intensity={0.3} />
+        <FixedDirectionalLight />
+        <BoxSphere />
+      </Canvas>
+    </div>
+  )
+}
+
+export function BoxSphere() {
   const [isGrid, setIsGrid] = useState(true);
   const groupRef = useRef<Group>(null);
 
@@ -96,5 +115,24 @@ function Box({ width, height, depth, isGrid }: BoxProps) {
         <Icon width={30} height={30} />
       </Html>
     </mesh>
+  );
+}
+
+function FixedDirectionalLight() {
+  const lightRef = useRef<DirectionalLight>(null);
+  const { camera } = useThree();
+
+  useEffect(() => {
+    const light = lightRef.current;
+    if (light) {
+      camera.add(light);
+      return () => {
+        camera.remove(light);
+      };
+    }
+  }, [camera]);
+
+  return (
+    <directionalLight ref={lightRef} />
   );
 }
