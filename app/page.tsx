@@ -13,30 +13,38 @@ import { DirectionalLight } from "three";
 import HeroSection from "@/components/HeroSection";
 import ResumeSection from "@/components/ResumeSection";
 import Skills from "@/components/Skills";
+import { useMediaQuery } from "react-responsive";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 786px)' })
 
   useEffect(() => {
     // Simulate loading time
-    const timer = setTimeout(() => setLoading(false), 2800);
-    return () => clearTimeout(timer);
-  }, []);
+    if (isLargeScreen) {
+      const timer = setTimeout(() => setLoading(false), 2800);
+      return () => clearTimeout(timer);
+    } else {
+      setLoading(false);
+    }
+  }, [isLargeScreen]);
 
   return (
     <div className="w-full min-h-screen bg-primary text-white overflow-hidden">
       {/* Sphere background */}
-      <div className="fixed inset-0 z-0">
-        <Canvas>
-          <PerspectiveCamera makeDefault position={[0, 0, 20]} />
-          <ambientLight intensity={0.3} />
-          <pointLight position={[10, 10, 10]} intensity={0.3} />
-          <pointLight position={[-10, -10, -10]} intensity={0.3} />
-          <pointLight position={[0, 0, 0]} intensity={0.3} />
-          <FixedDirectionalLight />
-          <BoxSphere />
-        </Canvas>
-      </div>
+      {isLargeScreen && (
+        <div className="fixed inset-0 z-0">
+          <Canvas>
+            <PerspectiveCamera makeDefault position={[0, 0, 20]} />
+            <ambientLight intensity={0.3} />
+            <pointLight position={[10, 10, 10]} intensity={0.3} />
+            <pointLight position={[-10, -10, -10]} intensity={0.3} />
+            <pointLight position={[0, 0, 0]} intensity={0.3} />
+            <FixedDirectionalLight />
+            <BoxSphere />
+          </Canvas>
+        </div>
+      )}
 
       <AnimatePresence>
         {!loading && (
