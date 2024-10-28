@@ -15,7 +15,10 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["github.com"]
+    remotePatterns: [{
+      protocol: 'https',
+      hostname: 'github.com',
+    }]
   }
 };
 

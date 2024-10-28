@@ -34,6 +34,7 @@ export function ProjectCard({
             width="1000"
             className="w-full object-cover aspect-video rounded-xl group-hover/card:shadow-xl"
             alt="thumbnail"
+            unoptimized={project.image.includes("gif")}
           />
         </CardItem>
 
