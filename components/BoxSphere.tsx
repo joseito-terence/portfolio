@@ -7,12 +7,13 @@ import { skills } from "@/app/constants";
 
 const icons = skills.map(skill => skill.Icon);
 
+const numBoxes = 250;
+const gridSize = Math.ceil(Math.sqrt(numBoxes));
+const spacing = 1.5;
+
 export default function BoxSphere() {
   const [isGrid, setIsGrid] = useState(true);
   const groupRef = useRef<Group>(null);
-  const numBoxes = 250;
-  const gridSize = Math.ceil(Math.sqrt(numBoxes));
-  const spacing = 1.5;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsGrid(false), 1000);
@@ -21,38 +22,45 @@ export default function BoxSphere() {
 
   useFrame((_, delta) => {
     if (groupRef.current && !isGrid) {
-      groupRef.current.rotation.x += delta * 0.2;
-      groupRef.current.rotation.y += delta * 0.2;
+      const rotationSpeed = delta * 0.2;
+      groupRef.current.rotation.x += rotationSpeed;
+      groupRef.current.rotation.y += rotationSpeed;
     }
   });
 
-  const boxes = [];
-  for (let i = 0; i < numBoxes; i++) {
-    const gridX = (i % gridSize - gridSize / 2) * spacing;
-    const gridY = (Math.floor(i / gridSize) - gridSize / 2) * spacing;
-    const gridZ = 0;
+  const boxes = useMemo(() => {
+    const arr = [];
+    for (let i = 0; i < numBoxes; i++) {
+      let x, y, z;
+      if (isGrid) {
+        x = (i % gridSize - (gridSize - 1) / 2) * spacing;
+        y = (Math.floor(i / gridSize) - (gridSize - 1) / 2) * spacing;
+        z = 0;
+      } else {
+        const phi = Math.acos(-1 + (2 * i) / numBoxes);
+        const theta = Math.sqrt(numBoxes * Math.PI) * phi;
+        x = 5 * Math.cos(theta) * Math.sin(phi);
+        y = 5 * Math.sin(theta) * Math.sin(phi);
+        z = 5 * Math.cos(phi);
+      }
 
-    const phi = Math.acos(-1 + (2 * i) / numBoxes);
-    const theta = Math.sqrt(numBoxes * Math.PI) * phi;
-    const sphereX = 5 * Math.cos(theta) * Math.sin(phi);
-    const sphereY = 5 * Math.sin(theta) * Math.sin(phi);
-    const sphereZ = 5 * Math.cos(phi);
-
-    boxes.push(
-      <motion.group
-        key={i}
-        initial={{ x: gridX, y: gridY, z: gridZ }}
-        animate={{
-          x: isGrid ? gridX : sphereX,
-          y: isGrid ? gridY : sphereY,
-          z: isGrid ? gridZ : sphereZ,
-        }}
-        transition={{ duration: 2, ease: "easeInOut" }}
-      >
-        <Box width={1} height={1} depth={0.5} isGrid={isGrid} />
-      </motion.group>
-    );
-  }
+      arr.push(
+        <motion.group
+          key={i}
+          initial={{ 
+            x: isGrid ? x : 0, 
+            y: isGrid ? y : 0, 
+            z: isGrid ? z : 0
+          }}
+          animate={{ x, y, z }}
+          transition={{ duration: 2, ease: "easeInOut" }}
+        >
+          <Box width={1} height={1} depth={0.4} isGrid={isGrid} />
+        </motion.group>
+      );
+    }
+    return arr;
+  }, [isGrid]);
 
   return <group ref={groupRef}>{boxes}</group>;
 }
@@ -66,7 +74,6 @@ interface BoxProps {
 
 function Box({ width, height, depth, isGrid }: BoxProps) {
   const meshRef = useRef<Mesh>(null);
-  
   const Icon = useMemo(() => icons[Math.floor(Math.random() * icons.length)], []);
 
   useFrame(() => {
