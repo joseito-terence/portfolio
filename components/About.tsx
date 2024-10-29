@@ -7,6 +7,7 @@ import { FadeUp } from "./ui/fade-up";
 import { motion } from "framer-motion-3d"
 import { useInView } from "framer-motion"
 import { useRef } from "react";
+import { IconMapPin } from "@tabler/icons-react";
 
 export default function About() {
   const ref = useRef(null)
@@ -42,6 +43,10 @@ export default function About() {
           <FadeUp delay={0.5}>
             <p className="text-lg">
               {metadata.description}
+            </p>
+            <p className="text-md mt-4 opacity-70 flex items-center gap-1">
+              <IconMapPin size={20} />
+              Hounslow, London, UK
             </p>
           </FadeUp>
         </div>
